@@ -1,0 +1,13 @@
+{
+    "realm": "CoMarketplace",
+    "auth-server-url": "http://localhost:8081/auth",
+    "ssl-required": "external",
+    "resource": "web-client",
+    "credentials": {
+        "secret": "74dcee87-76da-47a5-b09b-e995aca32453"
+    },
+    "confidential-port": 0,
+    "disable-trust-manager": true,
+    "enable-basic-auth": "false",
+    "principal-attribute": "preferred_username"
+}
