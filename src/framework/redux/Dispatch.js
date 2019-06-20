@@ -1,10 +1,5 @@
-import Error, {
-    FATAL
-} from '../model/Error';
-import {
-    FAIL,
-    SUCCESS
-} from '../model/Response';
+import Error, { FATAL } from '../model/Error';
+import { FAIL, SUCCESS } from '../model/Response';
 
 /**
  * @author Edward P. Legaspi
@@ -66,8 +61,11 @@ export default class Dispatch {
         if (response.status === SUCCESS) {
             Dispatch.success(dispatch, type, response.result);
 
-        } else {
+        } else if (response.status === FAIL && response.error.type === FATAL) {
             Dispatch.fatal(dispatch, type, response.error);
+        
+        } else {
+        	Dispatch.error(dispatch, type, response.error);
         }
     }
 

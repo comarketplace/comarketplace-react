@@ -1,8 +1,8 @@
-import Dispatch from '../Dispatch';
+import Dispatch from '../Dispatch'
 
-const INITIALIZE = 'authorization/INITIALIZE';
-const LOGOUT = 'authorization/LOGOUT';
-const UPDATE_TOKEN = 'authorization/UPDATE_TOKEN';
+const INITIALIZE = 'authorization/INITIALIZE'
+const LOGOUT = 'authorization/LOGOUT'
+const UPDATE_TOKEN = 'authorization/UPDATE_TOKEN'
 
 const initialState = {
     auth: null,
@@ -10,9 +10,9 @@ const initialState = {
     user: {
         username: null
     },
-};
+}
 
-const TOKEN_REFRESH_RATE = 30;
+const TOKEN_REFRESH_RATE = 30
 
 /**
  * @author Edward P. Legaspi
@@ -24,87 +24,77 @@ export default function reducer(state = initialState, action) {
         case Dispatch.successAction(UPDATE_TOKEN): {
             return {
                 ...state,
-                ...action.data,
-            };
+                ...action.payload.data,
+            }
         }
         case Dispatch.successAction(LOGOUT): {
             return {
                 ...initialState,
-            };
+            }
         }
         default:
-            return state;
+            return state
     }
 }
 
-export function logout({
-    now
-}) {
+export function logout({ now }) {
     return (dispatch, getState) => {
-        const {
-            authorization
-        } = getState();
+        const { authorization } = getState()
         const {
             auth: {
                 keycloak
             }
-        } = authorization || {};
+        } = authorization || {}
         if (now) {
-            Dispatch.success(dispatch, LOGOUT);
-            keycloak.logout();
+            Dispatch.success(dispatch, LOGOUT)
+            keycloak.logout()
         } else {
             setTimeout(() => {
-                Dispatch.success(dispatch, LOGOUT);
-                keycloak.logout();
-            }, 5000);
+                Dispatch.success(dispatch, LOGOUT)
+                keycloak.logout()
+            }, 5000)
         }
-    };
+    }
 }
 
-const updateToken = token => dispatch => Dispatch.success(dispatch, UPDATE_TOKEN, {
-    token
-});
+const updateToken = token => dispatch => Dispatch.success(dispatch, UPDATE_TOKEN, { token })
 
 const scheduleTokenRefresh = (dispatch, auth) => {
-    const {
-        keycloak
-    } = auth || {};
+    const { keycloak } = auth || {}
     setInterval(() => {
         keycloak
             .updateToken(TOKEN_REFRESH_RATE)
             .success(refreshed => {
                 if (refreshed) {
-                    dispatch(updateToken(keycloak.token));
+                    dispatch(updateToken(keycloak.token))
                 } // else, token is still valid
             })
             .error(() => {
                 // eslint-disable-next-line no-console
-                console.error('Failed to retrieve an updated token or session has expired.');
+                console.error('Failed to retrieve an updated token or session has expired.')
                 dispatch(logout({
                     now: true
-                }));
-            });
-    }, TOKEN_REFRESH_RATE * 1000);
-};
+                }))
+            })
+    }, TOKEN_REFRESH_RATE * 1000)
+}
 
 export function initialize(auth) {
     return (dispatch, getState) => {
-        scheduleTokenRefresh(dispatch, auth);
-        const {
-            keycloak
-        } = auth || {};
+        scheduleTokenRefresh(dispatch, auth)
+        const { keycloak } = auth || {}
         const {
             token,
             idTokenParsed: {
                 preferred_username
             }
-        } = keycloak || {};
+        } = keycloak || {}
         Dispatch.success(dispatch, INITIALIZE, {
             auth,
             token,
             user: {
                 username: preferred_username
             }
-        });
-    };
+        })
+    }
 }

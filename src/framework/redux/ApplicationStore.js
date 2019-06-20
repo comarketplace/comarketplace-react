@@ -5,10 +5,11 @@
 const isProductionMode = process.env.NODE_ENV
 		&& process.env.NODE_ENV.trim() === 'production';
 
-console.log("isProductMode=" + isProductionMode)
+console.log("isProductionMode=" + isProductionMode)
 
 if (isProductionMode) {
 	module.exports = require('./ApplicationStore.prod');
+	
 } else {
 	module.exports = require('./ApplicationStore.dev');
 }
