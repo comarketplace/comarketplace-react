@@ -13,8 +13,8 @@ export default () => {
     console.log(context)
 
 	 if (authenticated) {
-		 return <Dashboard / >
+		 return <Dashboard />
 	 }
     
-    return <Home / > 
+    return <Home /> 
 }

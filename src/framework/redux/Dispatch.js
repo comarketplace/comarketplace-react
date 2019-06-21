@@ -62,7 +62,7 @@ export default class Dispatch {
             Dispatch.success(dispatch, type, response.result);
 
         } else if (response.status === FAIL && response.error.type === FATAL) {
-            Dispatch.fatal(dispatch, type, response.error);
+            Dispatch.error(dispatch, type, response.error);
         
         } else {
         	Dispatch.error(dispatch, type, response.error);

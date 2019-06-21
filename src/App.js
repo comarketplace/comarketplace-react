@@ -9,6 +9,7 @@ import SecurityContext from './framework/routing/SecurityContext'
 import * as AuthorizationActions from './framework/redux/module/Authorization';
 import LandingPageSwitcher from './framework/routing/LandingPageSwitcher'
 import Listings from './app/pages/secure/Listings'
+import Access from './app/pages/public/Access'
 
 class App extends React.Component {
 	
@@ -38,6 +39,7 @@ class App extends React.Component {
 		            		<Route exact path="/" component={LandingPageSwitcher} />
 		                    {/* Public Routes */}
 		                    <Route path="/listings" component={Listings} />
+		                    <Route path="/access" component={Access} />
 	            		</Switch>
             		</BrowserRouter>
         		</I18nextProvider>
