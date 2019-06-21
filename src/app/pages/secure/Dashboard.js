@@ -14,7 +14,7 @@ const Dashboard = ({ dispatch }) => {
 	   <div className="p-col-12">
 	      <div className="card">
 	         <ul>
-	            Hello
+	            Dashboard
 	         </ul>
 	      </div>
 	   </div>

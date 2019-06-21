@@ -1,20 +1,16 @@
-import React, { useEffect } from 'react';
+import React, {  } from 'react';
 import { connect } from 'react-redux';
 import { withSecurity } from '../../../framework/routing/SecureRoutes';
 //import { withSecureLayout } from '../../layout/SecureLayout';
 
 const Listings = ({ dispatch }) => {
 	
-	useEffect(() => {
-	
-	}, []);
-	
 	return (
 	<div className="p-grid">
 	   <div className="p-col-12">
 	      <div className="card">
 	         <ul>
-	            Hello
+	            Listings
 	         </ul>
 	      </div>
 	   </div>

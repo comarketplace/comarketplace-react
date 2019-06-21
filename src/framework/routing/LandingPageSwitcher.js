@@ -6,10 +6,10 @@ import Dashboard from '../../app/pages/secure/Dashboard'
 export default () => {
 	
     const context = useContext(SecureContext)
-    const { authenticated, keycloak } = context
+    const { authenticated } = context
     
     console.log('landingPage.authenticated=' + authenticated)
-    console.log('roles=' + keycloak.realmAccess.roles)
+    //console.log('roles=' + keycloak ? keycloak.realmAccess.roles : '')
     console.log(context)
 
 	 if (authenticated) {
