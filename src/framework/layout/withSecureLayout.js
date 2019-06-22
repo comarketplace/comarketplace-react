@@ -1,69 +1,67 @@
-import { connect } from 'react'
-import 'primeflex/primeflex.css';
+import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { isValidElementType } from 'react-is';
+import classNames from 'classnames';
 import {ScrollPanel} from 'primereact/components/scrollpanel/ScrollPanel';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import 'fullcalendar/dist/fullcalendar.css';
-import './layout/layout.css';
-import {AppTopbar} from './secured/AppTopbar';
+import '../../layout/layout.css';
 import {AppFooter} from './secured/AppFooter';
-import {AppMenu} from './secured/AppMenu';
-import {AppInlineProfile} from './secured/AppInlineProfile';
 
 const SecureLayout = ({ SecureLayoutComponent, ...componentProps }) => {
-	
-	onWrapperClick = (event) => {
-        if (!this.menuClick) {
-            this.setState({
-                overlayMenuActive: false,
-                mobileMenuActive: false
-            });
+	console.log("SecureLayout " + JSON.stringify(componentProps))
+	let menuClick = false
+    
+	const logo = this.state.layoutColorMode === 'dark' ? 'assets/layout/images/logo-white.svg': 'assets/layout/images/logo.svg';
+
+	const wrapperClass = classNames('layout-wrapper', {
+        'layout-overlay': this.state.layoutMode === 'overlay',
+        'layout-static': this.state.layoutMode === 'static',
+        'layout-static-sidebar-inactive': this.state.staticMenuInactive && this.state.layoutMode === 'static',
+        'layout-overlay-sidebar-active': this.state.overlayMenuActive && this.state.layoutMode === 'overlay',
+        'layout-mobile-sidebar-active': this.state.mobileMenuActive
+    });
+
+	const sidebarClassName = classNames("layout-sidebar", {'layout-sidebar-dark': this.state.layoutColorMode === 'dark'});
+
+	const onWrapperClick = (event) => {
+        if (!menuClick) {
+//            this.setState({
+//                overlayMenuActive: false,
+//                mobileMenuActive: false
+//            });
         }
 
-        this.menuClick = false;
+        menuClick = false;
     }
 	
 	return (
-		<div className={wrapperClass} onClick={this.onWrapperClick}>
-		   <AppTopbar onToggleMenu={this.onToggleMenu}/>
-		   <div ref={(el) =>
-		      this.sidebar = el} className={sidebarClassName} onClick={this.onSidebarClick}>
-		      <ScrollPanel ref={(el) =>
-		         this.layoutMenuScroller = el} style={{height:'100%'}}>
-		         <div className="layout-sidebar-scroll-content" >
-		            <div className="layout-logo">
-		               <img alt="Logo" src={logo} />
-		            </div>
-		            <AppInlineProfile />
-		            <AppMenu model={this.menu} onMenuItemClick={this.onMenuItemClick} />
-		         </div>
-		      </ScrollPanel>
-		   </div>
-		   <div className="layout-main">
-		      <SecureLayoutComponent {...componentProps} />
-		   </div>
-		   <AppFooter />
-		   <div className="layout-mask"></div>
-		</div>
-	);
+		<div className={wrapperClass} onClick={onWrapperClick}>
+            <SecureLayoutComponent {...componentProps} />
+            <AppFooter />
+
+            <div className="layout-mask"></div>
+        </div>
+    );
 }
 
 SecureLayout.propTypes = {
-	dispatch: PropTypes.func.isRequired,
-	SecureLayoutComponent: (props, propName) => {
-		if (props[propName] && !isValidElementType(props[propName])) {
-			return new Error(
-				`Invalid prop 'SecureLayoutComponent' supplied to 'SecureLayout': the prop is not a valid React component`,
-			);
-		}
-	},
+  dispatch: PropTypes.func.isRequired,
+  SecureLayoutComponent: (props, propName) => {
+    if (props[propName] && !isValidElementType(props[propName])) {
+      return new Error(
+        `Invalid prop 'SecureLayoutComponent' supplied to 'SecureLayout': the prop is not a valid React component`,
+      );
+    }
+  },
 };
 
 const ConnectedLayout = connect(({home}) => ({home: home}))(SecureLayout);
 
-export const withSecureLayout = SecureLayoutComponent => componentProps => (
+export const withPublicLayout = SecureLayoutComponent => componentProps => (
 	<ConnectedLayout {...componentProps} SecureLayoutComponent={SecureLayoutComponent} />
 )
-

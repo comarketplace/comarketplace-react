@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { useTranslation } from "react-i18next"
+import { withPublicLayout } from '../../../framework/layout/withPublicLayout'
 
 const Home = () => {
 	
@@ -27,4 +28,4 @@ export default connect(
 	state => ({
 		
 	})
-)(Home)
+)(withPublicLayout(Home))

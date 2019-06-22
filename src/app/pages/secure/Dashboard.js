@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { withSecurity } from '../../../framework/routing/SecureRoutes';
-import { withPublicLayout } from '../../../framework/layout/withPublicLayout'
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { withSecurity } from '../../../framework/routing/SecureRoutes'
+import { withSecureLayout } from '../../../framework/layout/withSecureLayout'
 import * as HomeActions from '../../redux/module/Home'
-import { withTranslation } from 'react-i18next';
-import * as AuthorizationActions from '../../../framework/redux/module/Authorization';
+import { withTranslation } from 'react-i18next'
+import * as AuthorizationActions from '../../../framework/redux/module/Authorization'
 
 const Dashboard = ({ dispatch, ...componentProps }) => {
 	useEffect(() => {
 		dispatch(HomeActions.click())
-	}, []);
+	}, [])
 
 	const logout = () => {
-		    dispatch(AuthorizationActions.logout({ now: true }));
-		  };
+		    dispatch(AuthorizationActions.logout({ now: true }))
+		  }
 	
 	return (
 		<div className="p-grid">
@@ -26,13 +26,11 @@ const Dashboard = ({ dispatch, ...componentProps }) => {
 		      </div>
 		   </div>
 		</div>
-	);
-};
+	)
+}
 
 export default connect(
 	state => ({
 		
 	})
-)(withPublicLayout(Dashboard));
-
-//export default withTranslation()(Dashboard)
+)(Dashboard)
