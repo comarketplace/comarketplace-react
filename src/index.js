@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AppWrapper from './AppWrapper';
 import 'babel-polyfill';
-import 'primeflex/primeflex.css';
-import 'primereact/resources/primereact.min.css';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 

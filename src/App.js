@@ -15,6 +15,7 @@ import * as AuthorizationActions from './framework/redux/module/Authorization';
 import LandingPageSwitcher from './framework/routing/LandingPageSwitcher'
 import Listings from './app/pages/secure/Listings'
 import Access from './app/pages/public/Access'
+import ScrollToTop from './ScrollToTop';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { I18nextProvider } from 'react-i18next'
 import i18next from 'i18next'
@@ -42,16 +43,18 @@ class App extends React.Component {
         return (
     		<SecurityContext.Provider value={{ ...auth, setAuth: this.setAuth }}>
             	<BrowserRouter>
-            		<Suspense fallback={<ProgressSpinner />}>
-	            		<I18nextProvider i18n={i18next}>
-		            		<Switch>
-			            		<Route exact path="/" component={LandingPageSwitcher} />
-			                    {/* Public Routes */}
-			                    <Route path="/listings" component={Listings} />
-			                    <Route path="/access" component={Access} />
-		            		</Switch>
-						</I18nextProvider>
-					</Suspense>
+            		<ScrollToTop>
+	            		<Suspense fallback={<ProgressSpinner />}>
+		            		<I18nextProvider i18n={i18next}>
+			            		<Switch>
+				            		<Route exact path="/" component={LandingPageSwitcher} />
+				                    {/* Public Routes */}
+				                    <Route path="/listings" component={Listings} />
+				                    <Route path="/access" component={Access} />
+			            		</Switch>
+							</I18nextProvider>
+						</Suspense>
+					</ScrollToTop>
         		</BrowserRouter>
         	</SecurityContext.Provider>
         )
