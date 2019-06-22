@@ -16,7 +16,7 @@ const TOKEN_REFRESH_RATE = 30
 
 /**
  * @author Edward P. Legaspi
- * @since 1.0
+ * @version 0.0.1
  */
 export default function reducer(state = initialState, action) {
     switch (action.type) {

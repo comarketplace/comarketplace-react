@@ -1,6 +1,6 @@
 /**
  * @author Edward P. Legaspi
- * @since 1.0
+ * @version 0.0.1
  */
 import { createStore, applyMiddleware } from 'redux';
 import { persistCombineReducers } from 'redux-persist';

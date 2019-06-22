@@ -1,27 +1,27 @@
-import Error, { FATAL } from '../model/Error';
-import { FAIL, SUCCESS } from '../model/Response';
+import Error, { FATAL } from '../model/Error'
+import { FAIL, SUCCESS } from '../model/Response'
 
 /**
  * @author Edward P. Legaspi
- * @since 1.0
+ * @version 0.0.1
  */
 export default class Dispatch {
     static loadingAction(type) {
-        return `${type}_LOADING`;
+        return `${type}_LOADING`
     }
 
     static successAction(type) {
-        return `${type}_OK`;
+        return `${type}_OK`
     }
 
     static errorAction(type) {
-        return `${type}_KO`;
+        return `${type}_KO`
     }
 
     static loading(dispatch, type) {
         dispatch({
             type: Dispatch.loadingAction(type)
-        });
+        })
     }
 
     static success(dispatch, type, data) {
@@ -31,14 +31,39 @@ export default class Dispatch {
                 data
             },
             error: false
-        });
+        })
+    }
+
+    static done(dispatch, type, response) {
+        /* eslint-disable no-console */
+        console.log('\n\n=================================')
+        console.log('Dispatch done')
+        console.log('type : ', type)
+        console.log('response : ', response)
+        console.log('=================================\n\n\n')
+        /* eslint-enable */
+        
+        if(response === undefined) {
+        	Dispatch.success(dispatch, type, undefined)
+        	
+        } else {
+	        if (response.status === SUCCESS) {
+	            Dispatch.success(dispatch, type, response.result)
+	
+	        } else if (response.status === FAIL && response.error.type === FATAL) {
+	            Dispatch.error(dispatch, type, response.error)
+	        
+	        } else {
+	        	Dispatch.error(dispatch, type, response.error)
+	        }
+        }
     }
 
     static error(dispatch, type, data) {
         /* eslint-disable no-console */
-        console.error('Error encountered on action: ', type);
-        console.error('ERROR: ', data);
-        console.trace();
+        console.error('Error encountered on action: ', type)
+        console.error('ERROR: ', data)
+        console.trace()
         /* eslint-enable */
         dispatch({
             type: Dispatch.errorAction(type),
@@ -46,27 +71,7 @@ export default class Dispatch {
                 error: new Error(data),
             },
             error: true
-        });
-    }
-
-    static done(dispatch, type, response) {
-        /* eslint-disable no-console */
-        console.log('\n\n=================================');
-        console.log('Dispatch done');
-        console.log('type : ', type);
-        console.log('response : ', response);
-        console.log('=================================\n\n\n');
-        /* eslint-enable */
-
-        if (response.status === SUCCESS) {
-            Dispatch.success(dispatch, type, response.result);
-
-        } else if (response.status === FAIL && response.error.type === FATAL) {
-            Dispatch.error(dispatch, type, response.error);
-        
-        } else {
-        	Dispatch.error(dispatch, type, response.error);
-        }
+        })
     }
 
 }

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { isValidElementType } from 'react-is';
 
 const PublicLayout = ({ PublicLayoutComponent, ...componentProps }) => {
+	console.log("PublicLayout " + JSON.stringify(componentProps))
     return (
         <div>
-        	Public Layout {count}
             <PublicLayoutComponent {...componentProps} />
         </div>
     );
@@ -23,8 +23,8 @@ PublicLayout.propTypes = {
   },
 };
 
-const ConnectedLayout = connect()(PublicLayout);
+const ConnectedLayout = connect(({home}) => ({home: home}))(PublicLayout);
 
-export const withPublicLayout = PublicLayoutComponent => props => (
-  <ConnectedLayout {...props} PublicLayoutComponent={PublicLayoutComponent} />
-);
+export const withPublicLayout = PublicLayoutComponent => componentProps => (
+	<ConnectedLayout {...componentProps} PublicLayoutComponent={PublicLayoutComponent} />
+)

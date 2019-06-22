@@ -1,6 +1,6 @@
 /**
  * @author Edward P. Legaspi
- * @since 1.0
+ * @version 0.0.1
  */
 const isProductionMode = process.env.NODE_ENV
 		&& process.env.NODE_ENV.trim() === 'production';

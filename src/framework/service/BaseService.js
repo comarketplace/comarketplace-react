@@ -4,7 +4,7 @@ import * as properties from 'app/config/properties';
 
 /**
  * @author Edward P. Legaspi
- * @since 1.0
+ * @version 0.0.1
  */
 export default abstract class BaseService {
 

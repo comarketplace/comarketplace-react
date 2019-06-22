@@ -4,7 +4,7 @@ import Keycloak from 'keycloak-js';
 import SecurityContext from './SecurityContext';
 /**
  * @author Edward P. Legaspi
- * @since 1.0
+ * @version 0.0.1
  */
 export const withSecurity = SecureComponent => props => {
     const {

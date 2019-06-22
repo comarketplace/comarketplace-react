@@ -13,7 +13,7 @@ export default () => {
     console.log(context)
 
 	 if (authenticated) {
-		 return <Dashboard />
+		 return <Dashboard componentName="dashboard"/>
 	 }
     
     return <Home /> 
