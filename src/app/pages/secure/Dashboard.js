@@ -12,8 +12,8 @@ const Dashboard = ({ dispatch, ...componentProps }) => {
 	}, [])
 
 	const logout = () => {
-		    dispatch(AuthorizationActions.logout({ now: true }))
-		  }
+		dispatch(AuthorizationActions.logout({ now: true }))
+	}
 	
 	return (
 		<div className="p-grid">

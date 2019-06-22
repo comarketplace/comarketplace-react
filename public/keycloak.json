@@ -4,7 +4,7 @@
     "ssl-required": "external",
     "resource": "web-client",
     "credentials": {
-        "secret": "74dcee87-76da-47a5-b09b-e995aca32453"
+        "secret": "10005203-7055-455e-9357-4eaab619d746"
     },
     "confidential-port": 0,
     "disable-trust-manager": true,
