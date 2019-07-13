@@ -1,20 +1,15 @@
-import React, { useContext } from 'react'
-import SecureContext from './SecurityContext'
-import Home from '../../app/pages/public/Home'
-import Dashboard from '../../app/pages/secure/Dashboard'
+import React, { useContext } from 'react';
+import SecurityContext from './SecurityContext';
+import Home from '../../app/pages/public/Home';
+import Dashboard from '../../app/pages/secure/Dashboard';
 
 export default () => {
-	
-    const context = useContext(SecureContext)
-    const { authenticated } = context
-    
-    console.log('landingPage.authenticated=' + authenticated)
-    //console.log('roles=' + keycloak ? keycloak.realmAccess.roles : '')
-    console.log(context)
+	const { authContext } = useContext(SecurityContext) || {}
+	const { keycloak } = authContext || {}
 
-	 if (authenticated) {
-		 return <Dashboard componentName="dashboard"/>
-	 }
-    
-    return <Home /> 
-}
+	// if (keycloak && keycloak.authenticated) {
+	// 	return <Dashboard />;
+	// }
+
+	return <Home />;
+};

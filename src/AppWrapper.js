@@ -12,7 +12,7 @@ const applicationStore = configureStore();
  * @version 0.0.1
  */
 class AppWrapper extends Component {
-	
+
 	constructor(props) {
 		super(props);
 		this.persistor = persistStore(applicationStore);

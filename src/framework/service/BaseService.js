@@ -1,40 +1,13 @@
 import ServiceConnector from './ServiceConnector';
-import ApplicationStore from 'framework/redux/ApplicationStore';
-import * as properties from 'app/config/properties';
+import applicationStore from '../redux/ApplicationStore';
+import * as properties from '../../app/config/properties';
 
-/**
- * @author Edward P. Legaspi
- * @version 0.0.1
- */
-export default abstract class BaseService {
-
-    protected apiUrl: string;
-
-    constructor() {
-        this.serviceConnector = () => {
-            const state = ApplicationStore.getState();
-            const {
-                authorization
-            } = state;
-            return new ServiceConnector(properties.API_URL || '', authorization.token);
-        };
-    }
-
-    function findAll() {
-        return this.serviceConnector().callApi({
-            url: this.apiUrl
-        });
-    }
-
-    function findById(id) {
-
-    }
-
-    function deleteById(id) {
-
-    }
-
-    function save() {
-
-    }
+export default class BaseService {
+	constructor() {
+		this.serviceConnector = () => {
+			const state = applicationStore.getState();
+			const { authContext } = state;
+			return new ServiceConnector(properties.API_URL || '', authContext.token);
+		};
+	}
 }

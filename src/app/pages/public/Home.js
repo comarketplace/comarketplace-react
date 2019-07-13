@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { useTranslation } from "react-i18next"
-import { withPublicLayout } from '../../../framework/layout/withPublicLayout'
+import withPublicLayout from '../../../framework/layout/withPublicLayout'
 
 const Home = () => {
-	
+
+	console.log('homerun')
+
 	const { t, i18n } = useTranslation()
-//
-//	const changeLanguage = (lang) => {
-//		i18n.changeLanguage(lang)
-//	}
-//	{t('hello')}
-//	<button onClick={() => changeLanguage('en')}>en</button>
-//	<button onClick={() => changeLanguage('ja')}>ja</button>
-	
+	//
+	//	const changeLanguage = (lang) => {
+	//		i18n.changeLanguage(lang)
+	//	}
+	//	{t('hello')}
+	//	<button onClick={() => changeLanguage('en')}>en</button>
+	//	<button onClick={() => changeLanguage('ja')}>ja</button>
+
 	return (
 		<div>
 			{t('hello')}
@@ -26,6 +28,6 @@ const Home = () => {
 
 export default connect(
 	state => ({
-		
+
 	})
-)(withPublicLayout(Home))
+)(Home)

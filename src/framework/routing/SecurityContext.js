@@ -1,12 +1,8 @@
 import React from 'react';
 
-const initialContext = {
-    keycloak: null,
-    authenticated: false
-};
-
 /**
  * @author Edward P. Legaspi
  * @version 0.0.1
  */
+const initialContext = { keycloak: null };
 export default React.createContext(initialContext);

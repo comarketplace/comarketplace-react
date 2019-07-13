@@ -23,8 +23,10 @@ PublicLayout.propTypes = {
   },
 };
 
-const ConnectedLayout = connect(({home}) => ({home: home}))(PublicLayout);
+const ConnectedLayout = connect()(PublicLayout);
 
-export const withPublicLayout = PublicLayoutComponent => componentProps => (
+const withPublicLayout = PublicLayoutComponent => componentProps => (
 	<ConnectedLayout {...componentProps} PublicLayoutComponent={PublicLayoutComponent} />
 )
+
+export default withPublicLayout
