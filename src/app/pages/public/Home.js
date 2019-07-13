@@ -26,8 +26,4 @@ const Home = () => {
 	)
 }
 
-export default connect(
-	state => ({
-
-	})
-)(Home)
+export default connect()(withPublicLayout(Home))

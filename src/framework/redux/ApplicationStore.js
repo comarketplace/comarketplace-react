@@ -2,14 +2,56 @@
  * @author Edward P. Legaspi
  * @version 0.0.1
  */
-const isProductionMode = process.env.NODE_ENV
-		&& process.env.NODE_ENV.trim() === 'production';
+import { createStore, applyMiddleware, compose } from 'redux'
+import { persistCombineReducers } from 'redux-persist'
+import localForage from 'localforage'
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
+// import api from '../middleware/api'
+import promise from 'redux-promise-middleware'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import rootReducer from '../../app/redux/Reducers'
+import { crashReporter } from './Middlewares'
+import { monitorReducerEnhancer } from './Enhancers'
 
-console.log("isProductionMode=" + isProductionMode)
+const isProductionMode = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
+
+let middleware = null
+
+const middlewares = [thunk, promise, crashReporter]
 
 if (isProductionMode) {
-	module.exports = require('./ApplicationStore.prod');
-	
+	middleware = compose(applyMiddleware(...middlewares))
+
 } else {
-	module.exports = require('./ApplicationStore.dev');
+	middleware = composeWithDevTools(
+		applyMiddleware(...middlewares, createLogger()),
+		monitorReducerEnhancer
+	)
 }
+
+const configureStore = preloadedState => {
+	const store = createStore(
+		persistCombineReducers(
+			{
+				key: 'comarketplace',
+				storage: localForage,
+				whitelist: ['authContext']
+			},
+			rootReducer,
+		),
+		preloadedState,
+		middleware
+	)
+
+	if (process.env.NODE_ENV !== 'production' && module.hot) {
+        // Enable Webpack hot module replacement for reducers
+        module.hot.accept('../../app/redux/Reducers', () => {
+            store.replaceReducer(rootReducer);
+        });
+    }
+
+	return store
+}
+
+export default configureStore()

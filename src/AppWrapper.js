@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import configureStore from './framework/redux/ApplicationStore';
+import applicationStore from './framework/redux/ApplicationStore';
 import App from './App';
-
-const applicationStore = configureStore();
 
 /**
  * @author Edward P. Legaspi

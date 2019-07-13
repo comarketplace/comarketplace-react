@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 // import * as serviceWorker from './serviceWorker';
 import ScrollToTop from './ScrollToTop';
 import AppWrapper from './AppWrapper';
+import './i18n'
 
 ReactDOM.render(
 	<BrowserRouter basename={process.env.PUBLIC_URL}>

@@ -1,5 +1,5 @@
 import i18n from 'i18next';
-import Backend from 'i18next-xhr-backend';
+import XHR from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import {
     initReactI18next
@@ -8,7 +8,7 @@ import {
 i18n
     // load translation using xhr -> see /public/locales
     // learn more: https://github.com/i18next/i18next-xhr-backend
-    .use(Backend)
+    .use(XHR)
     // detect user language
     // learn more: https://github.com/i18next/i18next-browser-languageDetector
     .use(LanguageDetector)
@@ -21,7 +21,8 @@ i18n
     // https://www.i18next.com/overview/configuration-options
     .init({
         fallbackLng: 'en',
-        debug: true,
+		debug: true,
+		saveMissing: true,
 
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default

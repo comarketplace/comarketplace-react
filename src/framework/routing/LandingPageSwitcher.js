@@ -7,9 +7,9 @@ export default () => {
 	const { authContext } = useContext(SecurityContext) || {}
 	const { keycloak } = authContext || {}
 
-	// if (keycloak && keycloak.authenticated) {
-	// 	return <Dashboard />;
-	// }
+	if (keycloak && keycloak.authenticated) {
+		return <Dashboard />;
+	}
 
 	return <Home />;
 };

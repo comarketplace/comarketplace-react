@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { isValidElementType } from 'react-is';
 
 const PublicLayout = ({ PublicLayoutComponent, ...componentProps }) => {
-	console.log("PublicLayout " + JSON.stringify(componentProps))
+	
     return (
         <div>
             <PublicLayoutComponent {...componentProps} />
