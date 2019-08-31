@@ -18,6 +18,10 @@ export default class Dispatch {
         return `${type}_KO`
     }
 
+	static fatalAction(type) {
+		return `${type}_FATAL`;
+	}
+
     static loading(dispatch, type) {
         dispatch({
             type: Dispatch.loadingAction(type)
@@ -73,5 +77,19 @@ export default class Dispatch {
             error: true
         })
     }
+
+	static fatal(dispatch, type, payload) {
+		/* eslint-disable no-console */
+		console.error('Fatal error encountered on action: ', type);
+		console.error('FATAL: ', payload);
+		console.trace();
+		/* eslint-enable */
+		dispatch({
+			type: Dispatch.fatalAction(type),
+			data: {
+				error: new Error(payload),
+			},
+		});
+	}
 
 }
